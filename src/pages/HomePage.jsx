@@ -203,7 +203,7 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo-container">
           <img src="/smartcare-logo.png" alt="SmartHealth Connect Logo" className="logo" />
-          <span className="logo-text">SmartHealth Connect</span>
+          <span className="logo-text">SmartCare</span>
         </div>
         <ul className="nav-links">
           <li><a href="#home">Home</a></li>

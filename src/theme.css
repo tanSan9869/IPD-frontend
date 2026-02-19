@@ -1,0 +1,140 @@
+/* Medical theme variables */
+:root {
+  --primary: #0ea5e9;
+  --primary-dark: #0b3f7a;
+  --on-primary: #ffffff;
+  --bg: #e6f3ff;
+  --text: #0b2545;
+  --muted: #6b7280;
+  --surface: #ffffff;
+  --surface-alt: #fafcff;
+  --border: rgba(0,0,0,0.06);
+  --accent: #22c55e;
+  --danger: #ef4444;
+  --info: #3b82f6;
+}
+
+.app-layout.theme-medical {
+  --primary: #0ea5e9;
+  --primary-dark: #0b3f7a;
+  --on-primary: #ffffff;
+  --bg: #e6f3ff;
+  --text: #0b2545;
+  --muted: #6b7280;
+  --surface: #ffffff;
+  --surface-alt: #f5faff;
+  --border: rgba(11, 63, 122, 0.12);
+  --accent: #22c55e;
+  --danger: #ef4444;
+  --info: #3b82f6;
+}
+
+/* Shared theme for Navbar/Footer and sections */
+
+.navbar {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  backdrop-filter: blur(10px);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  height: 70px;
+  transition: all 0.2s ease;
+}
+.navbar--scrolled {
+  padding: 10px 24px;
+  height: 60px;
+  box-shadow: 0 12px 28px rgba(11, 63, 122, 0.24);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+
+.logo-container { display:flex; align-items:center; margin-right:32px; }
+.logo { height:40px; width:auto; margin-right:8px; }
+.logo-text { font-weight:700; font-size:20px; color: var(--on-primary); }
+
+.nav-links { display:flex; list-style:none; gap:16px; }
+.nav-links a { color:#e6f3ff; }
+
+.nav-buttons { display:flex; gap:12px; align-items:center; }
+.nav-login-btn, .nav-signup-btn { width:auto; padding:8px 14px; background: var(--primary); color: var(--on-primary); }
+
+.footer { background: var(--primary-dark); color:#e6f3ff; padding:32px 16px; margin-top:40px; }
+.footer-container { max-width:1100px; margin:0 auto; }
+.footer-content { display:grid; grid-template-columns: repeat(4, 1fr); gap:24px; }
+.footer-section h3, .footer-section h4 { color: var(--on-primary); }
+.footer-bottom { margin-top:16px; text-align:center; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px; }
+
+.section { padding:40px 0; }
+.section-container { max-width:1100px; margin:0 auto; padding:0 16px; }
+.section-title { text-align:center; margin-bottom:24px; color: var(--text); }
+
+.layout-content { min-height: calc(100vh - 70px - 160px); background: var(--bg); color: var(--text); }
+
+/* Scroll to top button */
+.scroll-top {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: none;
+  background: #0ea5e9;
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(14, 165, 233, 0.35);
+  cursor: pointer;
+}
+
+/* Dashboard polish */
+.dashboard-container { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+.dashboard-card { background: var(--surface); border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.08); border: 1px solid var(--border); overflow: hidden; }
+.dashboard-header { padding: 20px 24px; background: linear-gradient(135deg, #f0f7ff, #e8f0ff); border-bottom: 1px solid var(--border); }
+.dashboard-title { font-size: 22px; font-weight: 700; color: var(--primary-dark); }
+.dashboard-subtitle { color: var(--info); margin-top: 6px; }
+.dashboard-actions { display:flex; gap:12px; margin-top:12px; }
+
+/* Stat bar */
+.stat-bar { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; padding: 16px 24px; background: var(--surface-alt); border-bottom:1px solid var(--border); }
+.stat-card { display:flex; align-items:center; gap:12px; padding:12px; border-radius:12px; background: var(--surface); border:1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+.stat-icon { font-size: 20px; }
+.stat-value { font-weight: 700; color: var(--primary-dark); }
+.stat-label { color: var(--muted); font-size: 12px; }
+
+/* Status badges */
+.status-badge { padding: 6px 12px; border-radius: 999px; font-weight: 600; font-size: 12px; border: 1px solid transparent; text-transform: capitalize; }
+.status-pending { background:#fff7ed; border-color:#fdba74; color:#9a3412; }
+.status-approved { background:#ecfdf5; border-color:#6ee7b7; color:#065f46; }
+.status-rejected { background:#fef2f2; border-color:#fca5a5; color:#7f1d1d; }
+.status-cancelled { background:#eef2ff; border-color:#c7d2fe; color:#3730a3; }
+
+/* Requests list */
+.requests-list { list-style:none; margin:0; padding:16px 24px; display:grid; gap:12px; }
+.request-item { display:flex; align-items:center; justify-content:space-between; padding:14px; border:1px solid var(--border); border-radius:12px; background: var(--surface); box-shadow:0 4px 12px rgba(0,0,0,0.04); }
+.patient-section { display:flex; align-items:center; gap:12px; }
+.patient-avatar { width:36px; height:36px; border-radius:999px; background:#e0f2fe; color:#0c4a6e; display:flex; align-items:center; justify-content:center; font-weight:700; }
+.patient-info { display:flex; flex-direction:column; }
+.patient-name { font-weight:700; color: var(--primary-dark); }
+.patient-email { color: var(--muted); font-size:12px; }
+.request-actions { display:flex; align-items:center; gap:8px; }
+
+/* Buttons (minor variants) */
+.approve-button, .reject-button, .view-files-button, .consult-button, .empty-action { padding:8px 12px; border-radius:10px; border:none; cursor:pointer; }
+.approve-button { background: var(--accent); color: var(--on-primary); }
+.reject-button { background: var(--danger); color: var(--on-primary); }
+.view-files-button { background: var(--info); color: var(--on-primary); }
+.consult-button { background: var(--primary); color: var(--on-primary); }
+.empty-action { background: var(--primary); color: var(--on-primary); }
+
+/* Files list */
+.files-container { display:grid; gap:10px; padding: 8px 0; }
+.file-item { display:flex; align-items:center; justify-content:space-between; padding:12px; border:1px solid var(--border); border-radius:12px; background: var(--surface); box-shadow:0 4px 12px rgba(0,0,0,0.04); }
+.file-info { display:flex; gap:8px; align-items:center; color: var(--text); }
+.file-name { font-weight:600; color: var(--primary-dark); }
+.file-actions { display:flex; gap:8px; }
+
+/* Empty states */
+.empty-state { text-align:center; padding:32px; background: var(--surface-alt); border:1px dashed #cbd5e1; border-radius:16px; }
+.empty-illustration { font-size:28px; }
+.empty-title { font-size:18px; font-weight:700; color: var(--primary-dark); margin-top:8px; }
+.empty-description { color: var(--muted); margin:6px 0 12px; }

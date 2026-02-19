@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { getDoctors, applyToDoctor } from "../utils/api.js";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout.jsx";
 
 export default function DoctorsList() {
   const [doctors, setDoctors] = useState([]);
@@ -55,18 +56,14 @@ export default function DoctorsList() {
   const list = Array.isArray(doctors) ? doctors : [];
 
   return (
-    <>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo-container">
-          <img src="/smartcare-logo.png" alt="SmartCare Logo" className="logo" />
-          <span className="logo-text">SmartCare</span>
-        </div>
-        <ul className="nav-links">
-          <li><button onClick={() => navigate(-1)} className="find-doctors-button" style={{ background: '#6b7280', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: 6, cursor: 'pointer' }}>Back</button></li>
-        </ul>
-      </nav>
-
+    <Layout
+      showAuth={false}
+      rightSlot={
+        <button onClick={() => navigate(-1)} className="nav-login-btn" style={{ background: '#6b7280' }}>
+          Back
+        </button>
+      }
+    >
       <div className="dashboard-container">
         <div className="dashboard-card">
           <div className="dashboard-header">
@@ -97,9 +94,7 @@ export default function DoctorsList() {
                     disabled={submitting === d._id}
                     onClick={() => handleApply(d._id)}
                     className="consult-button"
-                    style={{
-                      opacity: submitting === d._id ? 0.7 : 1,
-                    }}
+                    style={{ opacity: submitting === d._id ? 0.7 : 1 }}
                   >
                     {submitting === d._id ? "Applying..." : "Consult"}
                   </button>
@@ -109,6 +104,6 @@ export default function DoctorsList() {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

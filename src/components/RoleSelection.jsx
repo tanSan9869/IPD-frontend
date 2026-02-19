@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../index.css"; // Ensure this import is present
+import Layout from "./Layout.jsx";
 const smartcareLogo = "/smartcare-logo.png";
 const RoleSelection = () => {
   const [role, setRole] = useState("");
@@ -14,21 +15,16 @@ const RoleSelection = () => {
     }
   };
 
-  return (
-    <div>
-            <nav className="navbar">
-                <div className="logo-container">
-                    <img src="/smartcare-logo.png" alt="SmartCare Logo" className="logo" />
-                    <span className="logo-text">SmartCare</span>
-                </div>
-                <ul className="nav-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Link</a></li>
-                </ul>
-            </nav>
-
-            <div className="role-selection-container">
+    return (
+        <Layout
+            showAuth={false}
+            rightSlot={
+                <button onClick={() => navigate('/')} className="nav-login-btn" style={{ background: '#6b7280' }}>
+                    Home
+                </button>
+            }
+        >
+                        <div className="role-selection-container">
                 <div className="main-content">
                     <div className="role-card">
                         <h2 className="role-title">Choose Your Role</h2>
@@ -61,7 +57,7 @@ const RoleSelection = () => {
                     </div>
                 </div>
             </div>
-        </div>
+    </Layout>
     );
 };
 

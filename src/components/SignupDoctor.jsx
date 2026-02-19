@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "./Layout.jsx";
 
 const SignupDoctor = () => {
   const [formData, setFormData] = useState({
@@ -45,15 +46,14 @@ const SignupDoctor = () => {
   };
 
   return (
-
-    <>
-    <nav className="navbar">
-      <div className="logo-container">
-                    <img src="/smartcare-logo.png" alt="SmartCare Logo" className="logo" />
-                    <span className="logo-text">SmartCare</span>
-                </div>
-      </nav>
-    
+    <Layout
+      showAuth={false}
+      rightSlot={
+        <button onClick={() => navigate('/role-selection')} className="nav-login-btn" style={{ background: '#6b7280' }}>
+          Back
+        </button>
+      }
+    >
     <div className="doctor-signup-container">
   <div className="doctor-signup-card">
     <form className="doctor-signup-form" onSubmit={handleSubmit}>
@@ -141,7 +141,7 @@ const SignupDoctor = () => {
     </div>
   </div>
 </div>
-          </>
+    </Layout>
   );
 };
 

@@ -1,8 +1,36 @@
 // frontend/src/pages/DoctorPatientFiles.jsx
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Layout from "../components/Layout.jsx";
 import { getApprovedPatientFiles, downloadDoctorFile, summarizeDoctorFile } from '../utils/api.js';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import "./../index.css"
+
+class MarkdownRenderer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  componentDidCatch(error) {
+    // If ReactMarkdown fails, fall back to sanitized HTML
+    this.setState({ hasError: true });
+  }
+  render() {
+    const { markdown } = this.props;
+    if (this.state.hasError) {
+      const html = DOMPurify.sanitize(marked.parse(markdown ?? '', { gfm: true, breaks: true }));
+      return <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }} />;
+    }
+    return (
+      <div className="markdown-body">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
+      </div>
+    );
+  }
+}
 
 export default function DoctorPatientFiles() {
   const { patientId } = useParams();
@@ -70,12 +98,20 @@ export default function DoctorPatientFiles() {
   );
 
   return (
-    <div className="doctor-files-container">
-      <h2 className="doctor-files-title">Patient Files</h2>
-      {files.length === 0 && <p className="doctor-no-files">No files available for this patient.</p>}
+    <Layout
+      showAuth={false}
+      rightSlot={
+        <button onClick={() => navigate(-1)} className="nav-login-btn" style={{ background: '#6b7280' }}>
+          Back
+        </button>
+      }
+    >
+      <div className="doctor-files-container">
+        <h2 className="doctor-files-title">Patient Files</h2>
+        {files.length === 0 && <p className="doctor-no-files">No files available for this patient.</p>}
 
-      <ul className="doctor-files-list">
-        {files.map(f => {
+        <ul className="doctor-files-list">
+          {files.map(f => {
           console.log('Rendering file:', f);
           return (
           <li id={`file-${f._id}`} key={f._id} className="doctor-file-item">
@@ -173,15 +209,18 @@ export default function DoctorPatientFiles() {
                 </div>
                 {expandedSummaries[f._id] && (
                   <div className="summary-content">
-                    <div className="summary-text">{summaries[f._id]}</div>
+                    <div className="summary-text">
+                      <MarkdownRenderer markdown={summaries[f._id]} />
+                    </div>
                   </div>
                 )}
               </div>
             )}
           </li>
         );
-        })}
-      </ul>
-    </div>
+          })}
+        </ul>
+      </div>
+    </Layout>
   );
 }

@@ -2,6 +2,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { getDoctorRequests, updateRequestStatus } from "../utils/api.js";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout.jsx";
+import StatBar from "../components/ui/StatBar.jsx";
+import StatusBadge from "../components/ui/StatusBadge.jsx";
 
 export default function DoctorDashboard() {
   const [rows, setRows] = useState([]);
@@ -72,35 +75,34 @@ export default function DoctorDashboard() {
   };
 
   const totalPending = rows.filter(r => r.status === "pending").length;
+  const totalApproved = rows.filter(r => r.status === "approved").length;
+  const totalRequests = rows.length;
 
   if (loading) return <p className="loading-text">Loading requests…</p>;
   if (error) return <p className="error-text">{error}</p>;
 
   return (
-    <div className="doctor-dashboard">
-      <div className="doctor-dashboard-header" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-        <h2 className="doctor-dashboard-title">Requests</h2>
-        <div>
-          <button
-            onClick={() => {
-              try { localStorage.removeItem('token'); localStorage.removeItem('role'); localStorage.removeItem('id'); } catch(e) {}
-              navigate('/');
-            }}
-            className="logout-button"
-            style={{
-              background: '#e74c3c',
-              color: '#fff',
-              border: 'none',
-              padding: '8px 12px',
-              borderRadius: 6,
-              cursor: 'pointer',
-              width: 100
-            }}
-          >
-            Logout
-          </button>
+    <Layout
+      showAuth={false}
+      rightSlot={
+        <button
+          onClick={() => { try { localStorage.removeItem('token'); localStorage.removeItem('role'); localStorage.removeItem('id'); } catch(e) {} navigate('/'); }}
+          className="nav-login-btn"
+          style={{ background: '#e74c3c' }}
+        >
+          Logout
+        </button>
+      }
+    >
+      <div className="doctor-dashboard">
+        <div className="doctor-dashboard-header" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+          <h2 className="doctor-dashboard-title">Requests</h2>
         </div>
-      </div>
+        <StatBar items={[
+          { label: 'Pending', value: totalPending, icon: '⏳' },
+          { label: 'Approved', value: totalApproved, icon: '✅' },
+          { label: 'Total', value: totalRequests, icon: '📬' },
+        ]} />
       <div className="pending-count-container">
         <p className="pending-count-text">
           You have <strong>{totalPending}</strong> pending request{totalPending !== 1 ? 's' : ''}.
@@ -126,9 +128,7 @@ export default function DoctorDashboard() {
               </div>
 
               <div className="request-actions">
-                <span className={`status-badge status-${status}`}>
-                  {status}
-                </span>
+                <StatusBadge status={status} />
 
                 {status === "pending" && (
                   <>
@@ -183,6 +183,7 @@ export default function DoctorDashboard() {
           );
         })}
       </ul>
-    </div>
+      </div>
+    </Layout>
   );
 }

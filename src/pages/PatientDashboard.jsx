@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Layout from "../components/Layout.jsx";
+import StatBar from "../components/ui/StatBar.jsx";
+import EmptyState from "../components/ui/EmptyState.jsx";
 
 const PatientDashboard = () => {
   const { id } = useParams();
@@ -169,7 +172,14 @@ const PatientDashboard = () => {
     }
     
     if (files.length === 0) {
-      return <div className="no-files-container"><p>No files uploaded yet.</p></div>;
+      return (
+        <EmptyState
+          title="No files uploaded yet"
+          description="Upload your medical records to manage and share securely."
+          actionLabel="Upload a file"
+          onAction={() => document.getElementById('file-upload')?.click()}
+        />
+      );
     }
     
     return (
@@ -183,8 +193,7 @@ const PatientDashboard = () => {
               )}
             </div>
             <div className="file-actions">
-              <button onClick={() => decryptAndDownload(file._id)} className="file-view-button">Decrypt</button>
-              <button onClick={() => downloadEncrypted(file._id)} className="file-download-button">Encrypted</button>
+              <button onClick={() => decryptAndDownload(file._id)} className="file-view-button">Download</button>
               <button onClick={() => handleDelete(file._id)} className="file-delete-button">Delete</button>
             </div>
           </div>
@@ -211,63 +220,41 @@ const PatientDashboard = () => {
   }, [fetchFiles]);
 
   return (
-    <>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo-container">
-          <img src="/smartcare-logo.png" alt="SmartCare Logo" className="logo" />
-          <span className="logo-text">SmartCare</span>
-        </div>
-        <ul className="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Link</a></li>
-          <li onClick={handleLogout}><a href="#">Logout</a></li>
-        </ul>
-      </nav>
-
-      {/* Dashboard */}
+    <Layout
+      showAuth={false}
+      rightSlot={
+        <button
+          onClick={handleLogout}
+          className="nav-login-btn"
+          style={{ background: '#e74c3c' }}
+        >
+          Logout
+        </button>
+      }
+    >
       <div className="dashboard-container">
         <div className="dashboard-card">
           <div className="dashboard-header">
             <h2 className="dashboard-title">Patient Dashboard</h2>
             <p className="dashboard-subtitle">Manage your medical documents</p>
             <div className="dashboard-actions">
-              <button 
-                onClick={navigateToDoctors} 
-                className="find-doctors-button"
-              >
-                Find Doctors
-              </button>
+              <button onClick={navigateToDoctors} className="find-doctors-button">Find Doctors</button>
               <button 
                 onClick={navigateToRequests} 
                 className="find-doctors-button"
-                style={{ 
-                  background: 'linear-gradient(135deg, #28a745 0%, #1e7e34 100%)',
-                  boxShadow: '0 4px 15px rgba(40, 167, 69, 0.3)'
-                }}
+                style={{ background: 'linear-gradient(135deg, #28a745 0%, #1e7e34 100%)', boxShadow: '0 4px 15px rgba(40, 167, 69, 0.3)' }}
               >
                 My Requests
               </button>
-              {/* <button
-                onClick={handleLogout}
-                className="logout-button"
-                style={{
-                  marginLeft: 12,
-                  background: '#e74c3c',
-                  color: '#fff',
-                  border: 'none',
-                  padding: '8px 12px',
-                  borderRadius: 6,
-                  cursor: 'pointer'
-                }}
-              >
-                Logout
-              </button> */}
             </div>
           </div>
+          <StatBar
+            items={[
+              { label: 'Files', value: files.length, icon: '📄' },
+              { label: 'Upload Progress', value: `${uploadProgress}%`, icon: '⬆️' },
+            ]}
+          />
 
-          {/* Upload Section */}
           <div className="upload-section">
             <h3 className="section-title">Upload Medical Records</h3>
             <div className="file-upload-container">
@@ -283,16 +270,13 @@ const PatientDashboard = () => {
             </div>
           </div>
 
-          {/* Files Section */}
           <div className="files-section">
             <h3 className="section-title">Your Medical Documents</h3>
-            <div className="files-content">
-              {filesList}
-            </div>
+            <div className="files-content">{filesList}</div>
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

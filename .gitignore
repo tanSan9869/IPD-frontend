@@ -1,0 +1,67 @@
+# Frontend .gitignore
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.cache/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+/cypress/videos/
+/cypress/screenshots/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Vite
+.vite/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Vercel
+.vercel
+
+# Misc
+*.pem
+*.key
+
+# Keep example files
+!.env.example

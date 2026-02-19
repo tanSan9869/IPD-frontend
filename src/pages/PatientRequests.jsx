@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPatientRequests, revokeRequest } from "../utils/api.js";
+import Layout from "../components/Layout.jsx";
 
 export default function PatientRequests() {
   const [rows, setRows] = useState([]);
@@ -42,26 +43,14 @@ export default function PatientRequests() {
   if (error) return <p style={{ padding: 16, color: "crimson" }}>{error}</p>;
 
   return (
-    <>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo-container">
-          <img src="/smartcare-logo.png" alt="SmartCare Logo" className="logo" />
-          <span className="logo-text">SmartCare</span>
-        </div>
-        <ul className="nav-links">
-          <li>
-            <button
-              onClick={() => navigate(-1)}
-              className="find-doctors-button"
-              style={{ background: '#6b7280', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: 6, cursor: 'pointer' }}
-            >
-              Back
-            </button>
-          </li>
-        </ul>
-      </nav>
-
+    <Layout
+      showAuth={false}
+      rightSlot={
+        <button onClick={() => navigate(-1)} className="nav-login-btn" style={{ background: '#6b7280' }}>
+          Back
+        </button>
+      }
+    >
       <div className="dashboard-container">
         <div className="dashboard-card">
           <div className="dashboard-header">
@@ -158,6 +147,6 @@ export default function PatientRequests() {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

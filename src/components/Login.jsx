@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "./Layout.jsx";
 
 const Login = ({ role }) => {
   const [username, setUsername] = useState("");
@@ -86,18 +87,14 @@ const Login = ({ role }) => {
   };
 
   return (
-    <>
-      {/* Modified navbar with only logo and text */}
-      <nav className="navbar">
-        <div className="logo-container">
-          <img
-            src="/smartcare-logo.png"
-            alt="SmartCare Logo"
-            className="logo"
-          />
-          <span className="logo-text">SmartCare</span>
-        </div>
-      </nav>
+    <Layout
+      showAuth={false}
+      rightSlot={
+        <button onClick={() => navigate('/role-selection')} className="nav-login-btn" style={{ background: '#6b7280' }}>
+          Back
+        </button>
+      }
+    >
       <div className="signup-container">
         <div className="signup-card">
           <h2 className="signup-title">
@@ -157,8 +154,8 @@ const Login = ({ role }) => {
             )}
           </div>
         </div>
-      </div>{" "}
-    </>
+      </div>
+    </Layout>
   );
 };
 
