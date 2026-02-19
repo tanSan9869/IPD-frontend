@@ -1,5 +1,6 @@
 // frontend/src/utils/api.js
-const BASE_URL = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+const BASE_URL = API_BASE_URL;
 
 const authHeaders = () => {
   const token = localStorage.getItem("token");

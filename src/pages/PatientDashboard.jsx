@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
 import StatBar from "../components/ui/StatBar.jsx";
 import EmptyState from "../components/ui/EmptyState.jsx";
+import { API_BASE_URL } from "../utils/api.js";
 
 const PatientDashboard = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const PatientDashboard = () => {
     setError(null);
 
     try {
-  const response = await fetch(`http://localhost:5000/api/files/patient/${id}/files`);
+      const response = await fetch(`${API_BASE_URL}/api/files/patient/${id}/files`);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
       // Check if response is JSON before parsing
@@ -67,8 +68,8 @@ const PatientDashboard = () => {
     formData.append("file", selectedFile);
 
     try {
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", `http://localhost:5000/api/files/patient/${id}/upload`);
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `${API_BASE_URL}/api/files/patient/${id}/upload`);
 
       // Upload progress tracking
       xhr.upload.onprogress = (event) => {
@@ -105,7 +106,7 @@ const PatientDashboard = () => {
       setFiles(prevFiles => prevFiles.filter(f => f._id !== fileId));
 
       const res = await fetch(
-        `http://localhost:5000/api/files/patient/${id}/file/${fileId}`,
+        `${API_BASE_URL}/api/files/patient/${id}/file/${fileId}`,
         { method: "DELETE" }
       );
 
@@ -128,11 +129,11 @@ const PatientDashboard = () => {
   
   // Memoized download handlers
   const downloadEncrypted = useCallback((fileId) => {
-  window.location = `http://localhost:5000/api/files/patient/${id}/download-encrypted/${fileId}`;
+    window.location = `${API_BASE_URL}/api/files/patient/${id}/download-encrypted/${fileId}`;
   }, [id]);
 
   const decryptAndDownload = useCallback((fileId) => {
-  window.location = `http://localhost:5000/api/files/patient/${id}/download-decrypted/${fileId}`;
+    window.location = `${API_BASE_URL}/api/files/patient/${id}/download-decrypted/${fileId}`;
   }, [id]);
 
   // Memoized navigation handlers

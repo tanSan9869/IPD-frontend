@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import { API_BASE_URL } from "../utils/api.js";
 
 const OTPVerification = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const OTPVerification = () => {
   const handleSendOTP = async () => {
     setError(null);
     try {
-      const response = await fetch("http://localhost:5000/api/otp/send", {
+      const response = await fetch(`${API_BASE_URL}/api/otp/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -52,7 +53,7 @@ const OTPVerification = () => {
   const handleVerify = async () => {
     setError(null);
     try {
-      const response = await fetch("http://localhost:5000/api/otp/verify", {
+      const response = await fetch(`${API_BASE_URL}/api/otp/verify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),

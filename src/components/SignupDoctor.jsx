@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout.jsx";
+import { API_BASE_URL } from "../utils/api.js";
 
 const SignupDoctor = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const SignupDoctor = () => {
     console.log("Submitting:", formData);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/doctor-signup", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/doctor-signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
