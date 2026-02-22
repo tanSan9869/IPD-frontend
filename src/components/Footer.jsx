@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>SmartHealth Connect</h3>
+            <h3>SmartCare Connect</h3>
             <p>Connecting healthcare through secure digital innovation.</p>
           </div>
           <div className="footer-section">
@@ -35,7 +35,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2024 SmartHealth Connect. All rights reserved.</p>
+          <p>&copy; 2024 SmartCare Connect. All rights reserved.</p>
         </div>
       </div>
     </footer>
