@@ -81,8 +81,8 @@ const HomePage = () => {
     { name: "2.11.png", image: "/image/2.11.png" },
     {name  : "2.12.png", image: "/image/content2-img.webp"},
     {name : "2.13.png", image: "/image/main.png"},
-    {name:'2,.14.png',image:'image/header.png'},
-    {name:'2.15.png',image:'image/phone.png'}
+    {name:'2,.14.png',image:'/image/header.png'},
+    {name:'2.15.png',image:'/image/phone.png'}
 
   ];
 

@@ -86,9 +86,26 @@ const PatientDashboard = () => {
           setUploadProgress(0);
           fetchFiles();
         } else {
-          alert("Upload failed!");
+          let message = `Upload failed (HTTP ${xhr.status}).`;
+          try {
+            const contentType = xhr.getResponseHeader("content-type") || "";
+            if (contentType.includes("application/json")) {
+              const data = JSON.parse(xhr.responseText || "{}");
+              if (data?.message) message = `${message} ${data.message}`;
+            } else if (xhr.responseText) {
+              message = `${message} ${xhr.responseText}`;
+            }
+          } catch {
+            // ignore parse errors and keep generic message
+          }
+          alert(message);
           setUploadProgress(0);
         }
+      };
+
+      xhr.onerror = () => {
+        alert("Upload failed: network error or CORS blocked.");
+        setUploadProgress(0);
       };
 
       xhr.send(formData);
