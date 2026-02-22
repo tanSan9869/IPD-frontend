@@ -648,7 +648,7 @@ input:hover {
 
 .nav-signup-btn:hover {
   background: #fff;
-  color: #085ab8;
+  color: white;
   transform: scale(1.07);
   box-shadow: 0 0 30px rgba(243, 230, 230, 0.6), 0 0 60px rgba(255, 255, 255, 0.3);
 }
