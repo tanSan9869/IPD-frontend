@@ -65,7 +65,7 @@ const Login = ({ role }) => {
         const patientId = data.id || data.patientId;
         if (patientId) {
           localStorage.setItem("patientId", patientId);
-          navigate(`/patient-dashboard/${patientId}`);
+          navigate(`/otp-verification`);
         } else {
           console.error("No patient id in response:", data);
           setError("Could not retrieve patient ID. Please try again.");
